@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Howler - Main Page</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8" crossorigin="anonymous"></script>
+
+    <script src="./js/main.js" type="module"></script>
+    <link href="./css/main.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <nav class="navbar sticky-top navbar-dark bg-dark justify-content-around">
+            <h1><a href="./main">Howler</a></h1>
+            <div class="navbar-text" id="navProfile">
+                
+            </div>
+        </nav>
+        
+        <!-- Form to post a new howl -->
+        <form id="postHowlForm" class="mb-4">
+            <div class="mb-3">
+                <label for="howlText" class="form-label">What's on your mind?</label>
+                <textarea class="form-control" id="howlText" rows="3" required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Post Howl</button>
+        </form>
+        <p id="error" class="text-danger mt-3"></p>
+
+        <!-- Container to display howls -->
+        <div id="howlsContainer">
+            <!-- Howls will be dynamically added here -->
+        </div>
+    </div>
+</body>
+</html>

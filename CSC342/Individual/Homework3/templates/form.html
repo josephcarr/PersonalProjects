@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Pay Your Friends</title>
+
+    <link rel="stylesheet" href="./css/style.css" />
+    <script src="./js/formscript.js"></script>
+    <script src="./js/validate.js"></script>
+</head>
+
+<body>
+    <form action="./send" method="post" enctype="multipart/form-data">
+        <div id="formdisplay">
+            <div id="userdetails">
+                <div id="sender">
+                    <h1>Sender Details</h1>
+
+                    <div class="inputs">
+                        <img id="imgpreview"> <br />
+                        <input id="imgInput" type="file" name="imgInput" accept="image/*" required>
+                    </div>
+
+                    <div class="inputarea">
+                        <div class="inputs">
+                            <label for="sFirst">First Name:</label> <br />
+                            <input id="sFirst" type="text" name="sFirst" required />
+                        </div>
+
+                        <div class="inputs">
+                            <label for="sLast">Last Name:</label> <br />
+                            <input id="sLast" type="text" name="sLast" required />
+                        </div>
+                    </div>
+
+                </div>
+
+                <div id="recipient">
+                    <h1>Recipient Details</h1>
+
+                    <div class="inputarea">
+                        <div class="inputs">
+                            <label for="rFirst">First Name:</label> <br />
+                            <input id="rFirst" type="text" name="rFirst" required />
+                        </div>
+
+                        <div class="inputs">
+                            <label for="rLast">Last Name:</label> <br />
+                            <input id="rLast" type="text" name="rLast" required />
+                        </div>
+                    </div>
+
+                    <div class="inputs">
+                        <label for="message">Message:</label> <br />
+                        <textarea id="message" name="message" rows="5" cols="48" minlength="10" required></textarea>
+                    </div>
+
+                    <div class="inputs">
+                        <label>Notify Recipient:</label> <br />
+                        <input id="eRadio" type="radio" name="notify" value="email" />
+                        <label for="eRadio">Email</label>
+
+                        <input id="sRadio" type="radio" name="notify" value="SMS" />
+                        <label for="sRadio">SMS</label>
+
+                        <input id="nRadio" type="radio" name="notify" value="Do not notify" checked />
+                        <label for="nRadio">Do not notify</label>
+                    </div>
+
+                    <div class="inputarea">
+                        <div class="inputs">
+                            <label for="email">Email:</label> <br />
+                            <input id="email" type="email" name="email" pattern="[a-z0-9._%+\-]+@[a-z0-9.\-]+\.[a-z]{2,}$" />
+                        </div>
+
+                        <div class="inputs">
+                            <label for="phone">Phone Number:</label> <br />
+                            <input id="phone" type="tel" name="phone" pattern="^[0-9]{10}$" maxlength="10" />
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div id="paymentdetails">
+                <h1>Payment Details</h1>
+
+                <div class="inputarea">
+                    <div class="inputs">
+                        <label for="card">Card Type:</label> <br />
+                        <select id="card" name="card" required>
+                            <option value="Visa">Visa</option>
+                            <option value="Mastercard">Mastercard</option>
+                            <option value="Discover">Discover</option>
+                        </select>
+                    </div>
+
+                    <div class="inputs">
+                        <label for="cNumber">Card Number:</label> <br />
+                        <input id="cNumber" type="text" name="cNumber" pattern="^[0-9]{4}-[0-9]{4}-[0-9]{4}-[0-9]{4}$"
+                            minlength="19" maxlength="19" required />
+                    </div>
+                </div>
+
+                <div class="inputarea">
+                    <div class="inputs">
+                        <label for="expiration">Expiration:</label> <br />
+                        <input id="expiration" type="date" name="expiration" required>
+                    </div>
+
+                    <div class="inputs">
+                        <label for="ccv">CCV:</label> <br />
+                        <input id="ccv" type="password" name="ccv" pattern="^[0-9]{3,4}$"
+                            minlength="3" maxlength="4" required />
+                    </div>
+
+                    <div class="inputs">
+                        <label for="amount">Amount ($):</label> <br />
+                        <input id="amount" type="number" name="amount" min="0" step=".01" required />
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="inputs">
+                <input id="agree" type="checkbox" name="agree" required />
+                <label for="agree">I agree to the Terms and Conditions</label>
+            </div>
+
+            <input type="submit" value="Send" />
+        </div>
+    </form>
+</body>
+
+</html>

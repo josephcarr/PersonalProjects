@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Payment Success</title>
+
+    <link rel="stylesheet" href="./css/sendstyle.css" />
+    <script src="./js/sendscript.js"></script>
+</head>
+
+<body>
+    <div id="display">
+        <h1>Payment has been Successfully Submitted!</h1>
+
+        <div id="sender">
+            <h2>Sender Details</h2>
+
+            <div class="fields">
+                <img id="submitImg" src="/uploads/{{image}}"> <br />
+
+                <label>First Name: {{sFirst}}</label> <br />
+
+                <label>Last Name: {{sLast}}</label> <br />
+            </div>
+
+        </div>
+
+        <div id="recipient">
+            <h2>Recipient Details</h2>
+
+            <div class="fields">
+                <label for="rFirst">First Name: {{rFirst}}</label> <br />
+                <label for="rLast">Last Name: {{rLast}}</label> <br />
+
+                <label for="message">Message: {{message}}</label> <br />
+
+                <label for="email">Email: {{email}}</label> <br />
+                <label for="phone">Phone Number: {{phone}}</label> <br />
+            </div>
+
+        </div>
+
+        <div id="paymentdetails">
+            <h2>Payment Details</h2>
+
+            <div class="fields">
+                <label for="card">Card Type: {{card}}</label> <br />
+                <label for="cNumber">Card Number: {{cNumber}}</label> <br />
+                <label for="amount">Amount: ${{amount}}</label> <br />
+                <label for="date">Date Submitted: {{date}}</label> <br />
+            </div>
+
+        </div>
+
+        <button id="homebtn">
+            Home
+        </button>
+
+    </div>
+</body>
+
+</html>

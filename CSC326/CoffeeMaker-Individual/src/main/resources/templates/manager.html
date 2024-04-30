@@ -1,0 +1,118 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Manager Dashboard</title>
+<link rel="stylesheet" href="css/bootstrap.css" />
+<link rel="stylesheet" href="css/app.css" />
+<style>
+
+body {
+	background-color: #1E1515;
+	color: #ECE5E2;
+}
+
+label {
+	font-size: 24px;
+}
+
+button.btn.btn-primary {
+	background-color: #426265; 
+	border-color: #22383D;
+	font-size: 50px;
+	width: 28vw;
+	height: 20vh;
+	margin-top: 5vh;
+}
+
+button.btn.btn-primary.big {
+	width: 60vw;
+}
+
+div.dashboard {
+    display: flex;
+    flex-direction: row; 
+    flex-wrap: wrap;
+     justify-content: space-evenly;
+     align-items: center;
+}
+
+input.ng-valid {
+	background-color: lightgreen;
+}
+
+input.ng-dirty.ng-invalid-required, input.ng-dirty.ng-invalid-number {
+	background-color: red;
+}
+
+input.ng-dirty.ng-invalid-min {
+	background-color: yellow;
+}
+</style>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.js"></script>
+</head>
+
+<body>
+
+
+	<script>
+		/*<![CDATA[*/
+		var app = angular.module('myApp', []);
+		app.controller('ManagerCtrl', function($scope, $http) {
+
+           $scope.redirect = function(filename) {
+				window.location.href = filename;
+           }
+			
+		});
+		/*]]>*/
+	</script>
+	<div ng-app="myApp" class="ng-cloak" ng-controller="ManagerCtrl as ctrl">
+			
+	    <nav id="navbar" class="navbar sticky-top" style="background-color: #426265;">
+	        <div class="h1" style="text-align: center;">CoffeeMaker</div>
+	    </nav>
+	
+	    <br>
+	
+		<div class="dashboard">
+			
+			<button class="btn btn-primary big" ng-click="redirect('/orderviewandfulfill')">Manage Orders
+				<br>
+				<img alt="" src="/icons/icons8-inspection-48.png" width="48" height="48" style="filter: invert(99%) sepia(63%) saturate(706%) hue-rotate(298deg) brightness(110%) contrast(80%);">
+			</button>
+			<button class="btn btn-primary" ng-click="redirect('addrecipe.html')">Add Recipe
+				<br>
+				<img alt="" src="/icons/icons8-add-48.png" width="48" height="48" style="filter: invert(99%) sepia(63%) saturate(706%) hue-rotate(298deg) brightness(110%) contrast(80%);">
+			</button>
+			<button class="btn btn-primary big" ng-click="redirect('inventory.html')">Add Inventory
+				<br>
+				<img alt="" src="/icons/icons8-delivery-handcart-48.png" width="48" height="48" style="filter: invert(99%) sepia(63%) saturate(706%) hue-rotate(298deg) brightness(110%) contrast(80%);">
+			</button>
+			<button class="btn btn-primary" ng-click="redirect('editrecipe.html')">Edit Recipe
+				<br>
+				<img alt="" src="/icons/icons8-edit-48.png" width="48" height="48" style="filter: invert(99%) sepia(63%) saturate(706%) hue-rotate(298deg) brightness(110%) contrast(80%);">
+			</button>
+			<button class="btn btn-primary" ng-click="redirect('addingredient.html')">Add Ingredient
+				<br>
+				<img alt="" src="/icons/icons8-ingredients-48.png" width="48" height="48" style="filter: invert(99%) sepia(63%) saturate(706%) hue-rotate(298deg) brightness(110%) contrast(80%);">
+			</button>
+			<button class="btn btn-primary" ng-click="redirect('adduser.html')">Add Worker
+				<br>
+				<img alt="" src="/icons/icons8-queue-48.png" width="48" height="48" style="filter: invert(99%) sepia(63%) saturate(706%) hue-rotate(298deg) brightness(110%) contrast(80%);">
+			</button>
+			<button class="btn btn-primary" ng-click="redirect('deleterecipe.html')">Delete Recipe
+				<br>
+				<img alt="" src="/icons/icons8-delete-48.png" width="48" height="48" style="filter: invert(99%) sepia(63%) saturate(706%) hue-rotate(298deg) brightness(110%) contrast(80%);">
+			</button>
+			
+		</div>
+	
+	
+	
+	
+	
+	
+	
+</body>
+</html>

@@ -1,0 +1,212 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Inventory</title>
+<link rel="stylesheet" href="css/bootstrap.css" />
+<link rel="stylesheet" href="css/app.css" />
+<style>
+body.new {
+	background-color: #1E1515;
+	color: #ECE5E2;
+}
+
+label {
+	font-size: 24px;
+}
+
+table button {
+	border-color: #22383D;
+	color: #000000;
+	font-size: 16px;
+}
+
+button.btn {
+	background-color: #426265; 
+	border-color: #22383D;
+	font-size: 16px;
+}
+
+button.submit {
+	background-color: #426265; 
+	border-color: #22383D;
+	font-size: 16px;
+	width: 10vw;
+	height: 5vh;
+	margin: 2.5vw;
+}
+
+.h1.redirect {
+	cursor: pointer;
+	font-size: 28px;
+}
+
+input.ng-valid {
+	background-color: lightgreen;
+}
+
+input.ng-dirty.ng-invalid-required, input.ng-dirty.ng-invalid-number {
+	background-color: red;
+}
+
+input.ng-dirty.ng-invalid-min {
+	background-color: yellow;
+}
+
+table {
+	border-collapse: separate;
+	border: 1px solid #1E1515;
+	text-align: center;
+	font-size: 16px;
+	width: 40vw;
+}
+
+tr, th, td {
+	text-align: left;
+	padding: 20px;
+	border: 1px solid #1E1515;
+	border-spacing: 20px;
+}
+
+thead {
+	background-color: #22383D;
+}
+
+tbody:nth-child(odd) {
+	background-color: #22383D;
+}
+
+tbody:nth-child(even) {
+	background-color: #426265;
+}
+</style>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.js"></script>
+</head>
+
+<body class="new">
+
+
+	<script>
+		/*<![CDATA[*/
+		var app = angular.module('myApp', []);
+		app.controller('inventoryCtrl', function($scope, $http) {
+
+			
+			$scope.loadTable = () => {
+				$http.get("/api/v1/inventory").then((res) => {
+					$scope.originalIngredients = angular.copy(res.data.ingredients)
+					$scope.ingredients = res.data.ingredients
+					angular.forEach($scope.ingredients, (i) => {
+						i.amount = 0
+					})
+					$scope.inventory = {id: 0, inventory: res.data.inventory}
+				})
+			}
+			
+			$scope.removealerts = () => {
+				
+				$scope.failure = false
+				$scope.success = false
+				
+			}
+			
+			$scope.submitUpdate = () => {
+				angular.forEach($scope.ingredients, (i) => {
+					$scope.inventory.inventory[i.name] = i.amount
+				})
+					$http.put("/api/v1/inventory", $scope.inventory).then(res => {
+						if(!res.ok) {
+							console.log("Inventory updated!!")
+							$scope.success = true
+							$scope.failure = false
+						}
+						$scope.loadTable()
+						
+					}).catch(err => {
+						console.log("Update failed, error code:" + err.status)
+						$scope.failure = true
+						$scope.success = false
+						$scope.loadTable()
+						
+					})
+				
+			}
+			
+			$scope.logout = function() {
+				$http.post("/api/v1/logout").then((resp) => {
+						document.location.href="/";
+				})
+			}
+			
+			$scope.home = function() {
+				document.location.href="/index";
+			}
+			
+			$scope.loadTable()
+			
+			
+
+		});
+		/*]]>*/
+	</script>
+
+
+
+	<div class="ng-cloak" ng-app="myApp" ng-controller="inventoryCtrl as ctrl" style="display: flex; flex-direction: column; align-items: center;">
+		
+		<nav id="navbar" class="navbar sticky-top" style="background-color: #426265; display: flex; flex-direction: row; justify-content: space-evenly; align-items: center; width: 100vw;">
+			<div class="h1 redirect" ng-click="home()" style="width: 30vw; text-align: left;">Home</div>
+	        <div class="h1" style="width: 30vw; text-align: center;">CoffeeMaker</div>
+	        <div class="h1 redirect" ng-click="logout()" style="width: 30vw; text-align: right;"> Logout</div>
+	    </nav>
+	    
+	    <br>
+	    
+	    <h1 class="text-center">View Inventory</h1>
+		
+		<div ng-repeat="ingredient in originalIngredients" style="font-size: 16px;">
+			<strong>{{ingredient.name}}: </strong><span ng-bind="ingredient.amount"></span><br />
+		</div>
+
+	    <br>
+	    
+	    <h1 class="text-center">Update Inventory</h1>
+	    
+		<table>
+				
+				<thead>
+					<tr>
+						<th>Ingredients</th>
+						<th>Amount</th>
+					</tr>
+				</thead>
+				<tbody ng-repeat="ingredient in ingredients">
+					<td>	
+						{{ingredient.name}}
+					</td>
+
+					<td>
+						<button ng-model="ingredient.amount"
+							ng-click="ingredient.amount = ingredient.amount + 1" class="btn btn-info">+</button>
+						{{ingredient.amount}}
+						<button ng-model="ingredient.amount"
+							ng-click="ingredient.amount = ingredient.amount - 1" class="btn btn-info">-</button>
+					</td>
+				</tbody>
+			</table>
+			
+			<button ng-click="submitUpdate()" class="btn btn-primary submit">Submit</button>
+				
+		<div ng-show="success" style="text-align:center">Inventory Successfully Updated
+			<button ng-click="removealerts()" style='margin-left:16px' class="btn btn-danger">x</button>
+		</div>
+		<div ng-show="failure" style="text-align:center">Error while updating inventory.
+			<button ng-click="removealerts()" style='margin-left:16px' class="btn btn-danger">x</button>
+		</div>
+
+	</div>
+
+
+
+</body>
+</html>

@@ -1,0 +1,169 @@
+/* <<--- Classes --->> */
+
+.calcbtn {
+    width: 100px;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.equalbtn {
+    width: 410%;
+    font-size: 24px;
+    font-weight: bold;
+    margin: 1px;
+}
+
+.textdisplay {
+    width: 365px;
+    font-size: 24px;
+    font-weight: bold;
+    text-align: right;
+}
+
+/* <<--- IDs --->> */
+
+#calcdisplay {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+#calculator {
+    width: 500px;
+    height: 235px;
+    border: 5px solid black;
+    margin: 10px;
+    display: grid;
+    gap: 5px;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr;
+    grid-template-areas:
+        "text text text clear"
+        "seven eight nine divide"
+        "four five six multiply"
+        "one two three minus"
+        "sign zero decimal plus"
+        "equal equal equal equal";
+}
+
+#calctext {
+    text-align: right;
+    font-size: 24px;
+    font-weight: bold;
+    border: 1px solid black;
+    grid-area: text;
+}
+
+#clear {
+    grid-area: clear;
+}
+
+#seven {
+    grid-area: seven;
+}
+
+#eight {
+    grid-area: eight;
+}
+
+#nine {
+    grid-area: nine;
+}
+
+#divide {
+    grid-area: divide;
+}
+
+#four {
+    grid-area: four;
+}
+
+#five {
+    grid-area: five;
+}
+
+#six {
+    grid-area: six;
+}
+
+#multiply {
+    grid-area: multiply;
+}
+
+#one {
+    grid-area: one;
+}
+
+#two {
+    grid-area: two;
+}
+
+#three {
+    grid-area: three;
+}
+
+#minus {
+    grid-area: minus;
+}
+
+#sign {
+    grid-area: sign;
+}
+
+#zero {
+    grid-area: zero;
+}
+
+#decimal {
+    grid-area: decimal;
+}
+
+#plus {
+    grid-area: plus;
+}
+
+#calcequal {
+    grid-area: equal;
+}
+
+#histdisplay {
+    width: 250px;
+    height: 235px;
+    border: 5px solid black;
+    margin: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+#hist {
+    width: 150px;
+    height: 200px;
+    border: 2px solid black;
+    margin: 5px;
+    overflow: auto;
+}
+
+#history {
+    width: 100%;
+}
+
+#clearhist {
+    margin: 5px;
+    font-size: 14px;
+}
+
+/* <<--- Elements --->> */
+
+td { 
+    text-align: left;
+    font-size: 18px;
+    font-weight: bold;
+    padding: 10px; 
+} 
+  
+tr:nth-child(even) { 
+    background-color: #eee; 
+}

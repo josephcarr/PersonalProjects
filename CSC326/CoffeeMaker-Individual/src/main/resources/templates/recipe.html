@@ -1,0 +1,274 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Edit a Recipe</title>
+<style>
+body.new {
+	background-color: #1E1515;
+	color: #ECE5E2;
+}
+
+label {
+	font-size: 24px;
+}
+
+input[type="submit"] {
+	background-color: #426265; 
+	border-color: #22383D;
+	font-size: 16px;
+	width: 10vw;
+	height: 5vh;
+	margin: 2.5vw;
+}
+
+table button {
+	border-color: #22383D;
+	color: #000000;
+	font-size: 16px;
+}
+
+button.btn {
+	background-color: #426265; 
+	border-color: #22383D;
+	font-size: 16px;
+}
+
+button.submit {
+	background-color: #426265; 
+	border-color: #22383D;
+	font-size: 16px;
+	width: 10vw;
+	height: 5vh;
+	margin: 2.5vw;
+}
+
+.h1.redirect {
+	cursor: pointer;
+	font-size: 28px;
+}
+
+input.ng-valid {
+	background-color: lightgreen;
+}
+
+input.ng-dirty.ng-invalid-required,input.ng-dirty.ng-invalid-number {
+	background-color: red;
+}
+
+input.ng-dirty.ng-invalid-min {
+	background-color: yellow;
+}
+
+table {
+	border-collapse: separate;
+	border: 1px solid #1E1515;
+	text-align: center;
+	font-size: 16px;
+	width: 40vw;
+}
+
+tr, th, td {
+	text-align: left;
+	padding: 20px;
+	border: 1px solid #1E1515;
+	border-spacing: 20px;
+}
+
+thead {
+	background-color: #22383D;
+}
+
+tbody:nth-child(odd) {
+	background-color: #22383D;
+}
+
+tbody:nth-child(even) {
+	background-color: #426265;
+}
+</style>
+<link rel="stylesheet" href="css/bootstrap.css" />
+<link rel="stylesheet" href="css/app.css" />
+</head>
+<body class="new">
+	<script
+		src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.js"></script>
+
+	<script>
+		/*<![CDATA[*/
+		var app = angular.module('myApp', []);
+		app.controller('addRecipeCtrl', function($scope, $http, $q) {
+			$scope.loadRecipe = () => {
+				const params = new URL(window.location).searchParams
+				const recipe_name = params.get("name")
+				
+				$http.get("/api/v1/recipes/" + recipe_name).then(response => {
+					$scope.recipe = response.data
+					$scope.ingredients = $scope.recipe.ingredients
+					
+				})
+			}
+			
+			$scope.removealerts = () => {
+				
+				$scope.failure = false
+				$scope.success = false
+				
+			}
+			
+			$scope.removeIngredient = function(ingredient) {
+				$scope.ingredients.splice($scope.ingredients.indexOf(ingredient), 1);
+			}
+			$scope.addIngredient = (ingredient) => {
+				
+				$scope.ingredients.filter(i => i.name === ingredient.name )
+				if($scope.ingredients.filter(i => i.name === ingredient.name ).length == 0)
+					$scope.ingredients.push(ingredient)
+			}
+			
+			$scope.loadInventory = () => {
+				$http.get("/api/v1/inventory").then((res) => {
+					
+					$scope.inventoryIngredients = res.data.ingredients
+					$http.get("/api/v1/ingredients/identifier").then(resp => {
+						let nextId = resp.data
+						angular.forEach($scope.inventoryIngredients, (i) => {
+							i.id = nextId
+							i.amount = 0
+							nextId++
+						})
+						console.log($scope.inventoryIngredients)
+					})
+				})
+			}
+			
+			$scope.submitUpdate = () => {
+				$http.put("/api/v1/recipes", $scope.recipe).then(resp => {
+					if(!resp.ok) {
+						console.log("Change saved!!")
+						$scope.success = true
+						$scope.failure = false
+					}
+					$scope.loadRecipe()
+				}).catch(err => {
+					console.log("Update failed, error code:" + err.status)
+					$scope.failure = true
+					$scope.success = false
+					$scope.loadRecipe()
+					
+					if(err.status == 404) {
+						document.location.href = "/editrecipe"
+					}
+					
+				})
+			}
+			
+			$scope.logout = function() {
+				$http.post("/api/v1/logout").then((resp) => {
+						document.location.href="/";
+				})
+			}
+			
+			$scope.home = function() {
+				document.location.href="/index";
+			}
+			
+			$scope.loadInventory()
+			$scope.loadRecipe()
+			
+
+		});
+		/*]]>*/
+	</script>
+
+
+
+	<div ng-app="myApp" class="ng-cloak" ng-controller="addRecipeCtrl as ctrl">
+		<div>
+		
+			<nav id="navbar" class="navbar sticky-top" style="background-color: #426265; display: flex; flex-direction: row; justify-content: space-evenly; align-items: center;"> 
+				<div class="h1 redirect" ng-click="home()" style="width: 30vw; text-align: left;">Home</div>
+		        <div class="h1" style="width: 30vw; text-align: center;">CoffeeMaker</div>
+		        <div class="h1 redirect" ng-click="logout()" style="width: 30vw; text-align: right;"> Logout</div>
+		    </nav>
+			
+		    <br>
+		    
+		    <h1 class="text-center">Edit {{recipe.name}}</h1>		
+
+			<div style="display: flex; flex-direction: column; align-items: center;">
+			
+				<div class="col-xs-2">
+					<label for="ex1">Price:</label> <input ng-model="recipe.price"
+						class="form-control"></input> <br /> <br />
+				</div>
+
+
+				<table>
+
+					<thead>
+						<tr>
+							<th>Ingredients</th>
+							<th>Amount</th>
+						</tr>
+					</thead>
+					<tbody ng-repeat="ingredient in ingredients">
+						<td>
+							<button ng-model="ingredients"
+								ng-click="removeIngredient(ingredient)" class="btn btn-info">-</button>
+
+
+							{{ingredient.name}}
+						</td>
+
+						<td>
+							<button ng-model="ingredient.amount"
+								ng-click="ingredient.amount = ingredient.amount + 1"
+								class="btn btn-info">+</button> {{ingredient.amount}}
+							<button ng-model="ingredient.amount"
+								ng-click="ingredient.amount = ingredient.amount - 1"
+								class="btn btn-info">-</button>
+						</td>
+					</tbody>
+				</table>
+
+				<label>Ingredients available to add</label><br>
+				<table>
+					<thead>
+						<tr>
+							<th>Ingredients</th>
+
+						</tr>
+					</thead>
+					<tbody ng-repeat="ingredient in inventoryIngredients">
+						<td>
+							<button ng-click="addIngredient(ingredient)" class="btn btn-info">+</button>
+
+
+							{{ingredient.name}}
+						</td>
+
+					</tbody>
+
+				</table>
+				
+				<br>
+
+				<button ng-click="submitUpdate()" class="submit">Submit</button>
+			</div>
+			<div ng-show="success" style="text-align: center">
+				Inventory Successfully Updated
+				<button ng-click="removealerts()" style='margin-left: 16px'
+					class="btn btn-danger">x</button>
+			</div>
+			<div ng-show="failure" style="text-align: center">
+				Error while updating recipe.
+				<button ng-click="removealerts()" style='margin-left: 16px'
+					class="btn btn-danger">x</button>
+			</div>
+		</div>
+	</div>
+
+
+
+</body>
+</html>

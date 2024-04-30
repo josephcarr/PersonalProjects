@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Howler - Profile</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous" />
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8" crossorigin="anonymous"></script>
+
+    <script src="./js/profile.js" type="module"></script>
+    <link href="./css/profile.css" rel="stylesheet" />
+  </head>
+  <body>
+    <div class="container">
+      <nav class="navbar sticky-top navbar-dark bg-dark justify-content-around">
+        <h1><a href="./main">Howler</a></h1>
+        <div class="navbar-text" id="navProfile"></div>
+      </nav>
+
+      <h1 class="mt-5 mb-4">Profile</h1>
+      <div class="card mb-3">
+        <div class="row g-0">
+          <div class="col-md-4" id="profilePic"></div>
+          <div class="col-md-6" id="profileInfo"></div>
+        </div>
+      </div>
+
+      <div id="accordion">
+        <div class="card">
+          <div class="card-header" id="headingOne">
+            <h5 class="mb-0"><button class="btn btn-link" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">Follows</button></h5>
+          </div>
+
+          <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-bs-parent="#accordion">
+
+          </div>
+        </div>
+      </div>
+
+      <h2 class="mt-4 mb-3">Howls</h2>
+      <!-- Container to display howls -->
+      <div id="howlsContainer">
+        <!-- Howls will be dynamically added here -->
+      </div>
+    </div>
+  </body>
+</html>

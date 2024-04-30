@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Delete Recipes</title>
+<style>
+body.new {
+	background-color: #1E1515;
+	color: #ECE5E2;
+}
+
+label {
+	font-size: 24px;
+}
+
+input[type="submit"] {
+	background-color: #426265; 
+	border-color: #22383D;
+	font-size: 16px;
+	width: 10vw;
+	height: 5vh;
+	margin: 2.5vw;
+}
+
+table button {
+	border-color: #22383D;
+	color: #000000;
+	font-size: 16px;
+}
+
+.h1.redirect {
+	cursor: pointer;
+	font-size: 28px;
+}
+
+input.ng-valid {
+	background-color: lightgreen;
+}
+
+input.ng-dirty.ng-invalid-required,input.ng-dirty.ng-invalid-number {
+	background-color: red;
+}
+
+input.ng-dirty.ng-invalid-min {
+	background-color: yellow;
+}
+
+table {
+	border-collapse: separate;
+	border: 1px solid #1E1515;
+	text-align: center;
+	font-size: 16px;
+	width: 40vw;
+}
+
+tr, th, td {
+	text-align: left;
+	padding: 20px;
+	border: 1px solid #1E1515;
+	border-spacing: 20px;
+}
+
+thead {
+	background-color: #22383D;
+}
+
+tbody:nth-child(odd) {
+	background-color: #22383D;
+}
+
+tbody:nth-child(even) {
+	background-color: #426265;
+}
+
+ul {
+	list-style-type: none;
+}
+</style>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="stylesheet" href="css/bootstrap.css" />
+<link rel="stylesheet" href="css/app.css" />
+</head>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+<body class="new">
+	<script> 
+    /*<![CDATA[*/
+		var app = angular.module('myApp', []);
+		app.controller('recipesCtrl', function($scope, $http) {
+			
+			function updateRecipes() {
+				$http.get("/api/v1/recipes").then(function (response) {
+	  				$scope.recipes = response.data;
+	  			});
+			}
+			
+			function deleteRecipe(recipe) {
+		        $http.delete("/api/v1/recipes/" + recipe)
+		            .then(
+		            function (response) {
+		            		console.log(response);
+		    				$scope.submissionSuccess=true;	
+		    				
+		                
+		             	updateRecipes();
+		            },
+		            function(rejection){
+		                console.error('Error while deleting recipe');
+		                console.log(rejection);
+		                
+						$scope.submissionSuccess=false;	
+		                
+		             	// Update recipe list
+				        $http.get("/api/v1/recipes").then(function (response) {
+			  				$scope.recipes = response.data;
+			  			});
+		            }
+		        );
+			}
+			
+			$scope.del = function(){				
+				if ($scope.deleteAll) {
+					for (var i = 0, len = $scope.recipes.length; i < len; i++) {
+						var recipe = $scope.recipes[i];
+						deleteRecipe(recipe.name);
+					}
+				} else {
+					deleteRecipe($scope.name);
+				}
+				
+		        updateRecipes();
+			}
+			
+			$scope.logout = function() {
+				$http.post("/api/v1/logout").then((resp) => {
+						document.location.href="/";
+				})
+			}
+			
+			$scope.home = function() {
+				document.location.href="/index";
+			}
+			
+  			updateRecipes();
+		});
+	/*]]>*/
+	</script>
+
+	<div layout:fragment="content" class="ng-cloak"
+		ng-app="myApp" ng-controller="recipesCtrl as ctrl">
+
+		<nav id="navbar" class="navbar sticky-top" style="background-color: #426265; display: flex; flex-direction: row; justify-content: space-evenly; align-items: center;"> 
+			<div class="h1 redirect" ng-click="home()" style="width: 30vw; text-align: left;">Home</div>
+	        <div class="h1" style="width: 30vw; text-align: center;">CoffeeMaker</div>
+	        <div class="h1 redirect" ng-click="logout()" style="width: 30vw; text-align: right;"> Logout</div>
+	    </nav>
+		
+	    <br>
+	    
+	    <h1 class="text-center">Choose a Recipe to Delete</h1>
+
+		<div style="display: flex; flex-direction: column; align-items: center;">
+			<ul>
+				<li ng-repeat="recipe in recipes">
+						<input type="radio" ng-model="$parent.name" name="name"
+						value="{{recipe.name}}" required="true" />
+						<label>&emsp; {{recipe.name}}
+				</label></li>
+			</ul>
+			<br />
+
+
+			<div ng-if="recipes.length > 0">
+				<input type="checkbox" name="all" class="checkbox"
+					ng-model="$parent.deleteAll"> Delete all recipes? </input> <br />
+				<input type="submit" value="Delete" ng-click="del()"
+					class="btn btn-warning btn-sm" />
+			</div>
+
+
+			<div ng-if="0 >= recipes.length">There are no recipes in the
+				Coffee Maker.</div>
+			<div ng-if="submissionSuccess">Recipe deleted successfully</div>
+
+
+		</div>
+	</div>
+
+
+
+</body>
+</html>

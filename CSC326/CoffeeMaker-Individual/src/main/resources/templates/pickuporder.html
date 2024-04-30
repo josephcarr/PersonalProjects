@@ -1,0 +1,205 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Customer Dashboard</title>
+<link rel="stylesheet" href="css/bootstrap.css" />
+<link rel="stylesheet" href="css/app.css" />
+<style>
+body {
+	background-color: #1E1515;
+	color: #ECE5E2;
+}
+
+label {
+	font-size: 18px;
+}
+
+button.btn.btn-primary {
+	background-color: #426265;
+	border-color: #22383D;
+	font-size: 50px;
+	width: 30vw;
+	height: 50vh;
+	margin-top: 5vh;
+}
+
+div.dashboard {
+	display: flex;
+	flex-direction: column;
+	flex-wrap: wrap;
+	justify-content: space-evenly;
+	align-items: center;
+}
+
+input.ng-valid {
+	background-color: lightgreen;
+}
+
+input.ng-dirty.ng-invalid-required, input.ng-dirty.ng-invalid-number {
+	background-color: red;
+}
+
+input.ng-dirty.ng-invalid-min {
+	background-color: yellow;
+}
+
+table, th , td {
+	border: 1px solid grey;
+	border-collapse: collapse;
+	padding: 5px;
+	color: black;
+}
+
+table tr:nth-child(odd) {
+	background-color: #f2f2f2;
+}
+
+table tr:nth-child(even) {
+	background-color: #ffffff;
+}
+</style>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.js"></script>
+</head>
+
+<body>
+
+
+	<script>
+		/*<![CDATA[*/
+		var app = angular.module('myApp', []);
+		app.controller('PickupCtrl', function($scope, $http) {
+			$scope.orders = [];
+			$scope.currentUser;
+			
+			$scope.getCurrentUser = function() {
+				$http.get("/api/v1/users/current").then(function(response) {
+					$scope.currentUser = response.data;
+					console.log($scope.currentUser)
+					
+				}, function(rejection) {
+					console.error("Error while getting Current User");
+				})
+			}
+			
+			$scope.getOrders = function() {
+				$http.get("/api/v1/orders/user", $scope.currentUser).then(function(response) {
+					$scope.orders = response.data;
+					
+					angular.forEach($scope.orders, (i) => {
+						console.log(i)
+						if(i.fulfilled) {
+							i.status = "Ready"
+						} else {
+							i.status = "Not Ready"
+						}
+					})
+					
+				}, function(rejection) {
+					console.error(rejection);
+				})
+			}
+
+			$scope.pickupOrder = function(order) {
+				$scope.success = false;
+				$scope.failure = false;
+
+				if (order.fulfilled) {
+					$http.delete("/api/v1/orders/" + order.id).then(
+							function(success) {
+								$scope.success = true;
+								$scope.failure = false;
+							}, function(rejection) {
+								console.error("Error picking up order");
+								$scope.success = false;
+								$scope.failure = true;
+							});
+				}
+				else {
+					alert("Order is not ready yet!.");
+				}
+				
+				$scope.getCurrentUser();
+		        $scope.getOrders();
+			}
+			
+			$scope.logout = function() {
+				$http.post("/api/v1/logout").then((resp) => {
+						document.location.href="/";
+				})
+			}
+			
+			$scope.home = function() {
+				document.location.href="/index";
+			}
+
+           $scope.redirect = function(filename) {
+				window.location.href = filename;
+           }
+			
+           $scope.getCurrentUser();
+           $scope.getOrders();
+			
+		});
+		/*]]>*/
+	</script>
+	<div ng-app="myApp" class="ng-cloak"
+		ng-controller="PickupCtrl as ctrl">
+
+		<nav id="navbar" class="navbar sticky-top" style="background-color: #426265; display: flex; flex-direction: row; justify-content: space-evenly; align-items: center;">
+			<div class="h1 redirect" ng-click="home()" style="width: 30vw; text-align: left;">Home</div>
+	        <div class="h1" style="width: 30vw; text-align: center;">CoffeeMaker</div>
+	        <div class="h1 redirect" ng-click="logout()" style="width: 30vw; text-align: right;"> Logout</div>
+	    </nav>
+
+		<br>
+
+		<div class="dashboard">
+			<form ng-submit="submit()" name="placeOrderForm"
+				class="form-horizontal">
+				<div class="h3" style="text-align: center;">View Orders</div>
+
+				<div style="display: flex; align-items: center; margin: 20px;">
+					<table>
+						<thead>
+							<tr>
+								<th></th>
+								<th>Recipe</th>
+								<th>Time Submitted</th>
+								<th>Status</th>
+							</tr>
+						</thead>
+						<tbody ng-repeat="o in orders">
+							<td>
+								<button style="color: black" ng-model="orders"
+									ng-click="pickupOrder(o)">Pickup</button>
+							</td>
+							<td>
+								{{o.recipe.name}}
+							</td>
+
+							<td>
+								{{o.timeSubmitted}}
+							</td>
+							
+							<td>
+								{{o.status}}
+							</td>
+						</tbody>
+					</table>
+				</div>
+			</form>
+		</div>
+		
+		<div ng-show="success">Order Successfully Picked Up</div>
+		<div ng-show="failure">Error while picking up order!</div>
+	</div>
+
+
+
+
+
+
+
+</body>
+</html>

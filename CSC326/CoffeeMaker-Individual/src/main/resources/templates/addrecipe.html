@@ -1,0 +1,280 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Add a Recipe</title>
+<style>
+body.new {
+	background-color: #1E1515;
+	color: #ECE5E2;
+}
+
+label {
+	font-size: 24px;
+}
+
+input[type="submit"] {
+	background-color: #426265; 
+	border-color: #22383D;
+	font-size: 16px;
+	width: 10vw;
+	height: 5vh;
+	margin: 2.5vw;
+}
+
+table button {
+	border-color: #22383D;
+	color: #000000;
+	font-size: 16px;
+}
+
+.h1.redirect {
+	cursor: pointer;
+	font-size: 28px;
+}
+
+input.ng-valid {
+	background-color: lightgreen;
+}
+
+input.ng-dirty.ng-invalid-required,input.ng-dirty.ng-invalid-number {
+	background-color: red;
+}
+
+input.ng-dirty.ng-invalid-min {
+	background-color: yellow;
+}
+
+table {
+	border-collapse: separate;
+	border: 1px solid #1E1515;
+	text-align: center;
+	font-size: 16px;
+	width: 40vw;
+}
+
+tr, th, td {
+	text-align: left;
+	padding: 20px;
+	border: 1px solid #1E1515;
+	border-spacing: 20px;
+}
+
+thead {
+	background-color: #22383D;
+}
+
+tbody:nth-child(odd) {
+	background-color: #22383D;
+}
+
+tbody:nth-child(even) {
+	background-color: #426265;
+}
+</style>
+<link rel="stylesheet" href="css/bootstrap.css" />
+<link rel="stylesheet" href="css/app.css" />
+</head>
+<body class="new">
+	<div layout:fragment="content">
+		<script	src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.js"></script>
+		<script>
+			/* Without these comments, Thymeleaf will try to parse the Javascript as XML and break itself sometimes */
+			/*<![CDATA[*/ 
+			var app = angular.module('myApp', []);
+			app.controller('addRecipeCtrl', function($scope, $http, $q) {
+
+				/* Logic that handles controlling your page goes here */
+				
+				$scope.ingredients = [{}];
+				
+				$scope.name;
+				$scope.price;
+				
+				$http.get("/api/v1/inventory/ingredients").then(function(response) {
+					
+					//console.log(response.data);
+					// console.log(response.data[0]);
+					
+					i = 0;
+					while (i < response.data.length) {
+						
+						add = {
+							id: 0,
+							name: "",
+							amount: 1
+						};
+						
+						add.name = response.data[i].name;
+						add.id = i;
+						$scope.ingredients.push(add);
+						i++;
+					}
+					
+					$scope.ingredients.splice(0, 1);
+					// console.log($scope.ingredients);
+				});
+				
+ 				$scope.setNewIds = function() {
+					
+					$http.get("/api/v1/ingredients").then(function(response) {
+							$scope.nextId = response.data[response.data.length - 1].id;
+							console.log($scope.nextId);
+					});
+					
+					$scope.ingredients.forEach(ingredient => {
+						
+						$scope.nextId++;
+						ingredient.id = $scope.nextId;
+						
+						$http.post("/api/v1/ingredients", ingredient);
+					});
+					
+				}
+				
+ 				$scope.validate = function() {
+ 					valid = true;
+ 					
+					if ($scope.name == null || $scope.price == null || isNaN($scope.price) || $scope.price < 1 || $scope.ingredients.length < 1) {
+						valid = false;
+					}
+					
+					$scope.ingredients.forEach(ingredient => {
+						if (ingredient.amount < 1) {
+							valid = false;
+						}
+					});
+					
+					return valid;
+				}
+				
+				$scope.submitRecipe = function() {
+					$scope.valid = $scope.validate();
+					
+					// console.log($scope.valid);
+					// console.log($scope.ingredients);
+					
+ 					if ($scope.valid) {
+						
+ 						$http.get("/api/v1/recipes").then(function(response) {
+ 							$scope.recipes = response.data;
+ 							
+ 							if ($scope.recipes.length > 0)
+ 								$scope.nextIndex = $scope.recipes[$scope.recipes.length - 1].id;
+ 							else 
+ 								$scope.nextIndex = 1;
+ 								
+ 							$scope.setNewIds();
+ 							
+  							const recipe = {
+									"id": $scope.nextIndex + 1,
+									"name": $scope.name,
+									"price": $scope.price,
+									"ingredients": $scope.ingredients
+							}
+ 							
+ 							console.log(recipe);
+ 							
+ 							$http.post("/api/v1/recipes", recipe).then(
+ 									function(success) {
+ 										$scope.success = true;
+ 									}, function(rejection) {
+ 										$scope.failure = true;
+ 							});
+ 						});
+						
+					} else {
+						alert("Form is invalid.");
+					}
+					
+				}
+				
+				$scope.removeIngredient = function(ingredient) {
+					$scope.ingredients.splice($scope.ingredients.indexOf(ingredient), 1);
+				}
+				
+				$scope.logout = function() {
+					$http.post("/api/v1/logout").then((resp) => {
+							document.location.href="/";
+					})
+				}
+				
+				$scope.home = function() {
+					document.location.href="/index";
+				}
+
+			});
+			
+			/* Without these comments, Thymeleaf will try to parse the Javascript as XML and break itself sometimes */
+			/*]]>*/
+		</script>
+		
+	</div>
+
+
+
+	<div ng-app="myApp" class="ng-cloak" ng-controller="addRecipeCtrl as ctrl">
+	
+		<nav id="navbar" class="navbar sticky-top" style="background-color: #426265; display: flex; flex-direction: row; justify-content: space-evenly; align-items: center;"> 
+			<div class="h1 redirect" ng-click="home()" style="width: 30vw; text-align: left;">Home</div>
+	        <div class="h1" style="width: 30vw; text-align: center;">CoffeeMaker</div>
+	        <div class="h1 redirect" ng-click="logout()" style="width: 30vw; text-align: right;"> Logout</div>
+	    </nav>
+		
+	    <br>
+	    
+	    <h1 class="text-center">Add a Recipe</h1>
+
+		<form ng-submit="submit()" name="addRecipeForm" class="container form-container" style="display: flex; flex-direction: column; align-items: center;">
+				
+			<div style="display: flex; align-items: center; margin: 20px;">
+				<label for="name">Name:</label>
+				<input type="text" ng-model="name" name="name" class="form-control" required="true" />
+			</div>
+			
+			<div style="display: flex; align-items: center; margin: 20px;">
+				<label for="price">Price:</label>
+				<input type="number" ng-model="price" name="price" class="form-control" required="true" min="0"/>
+			</div>
+			
+			<div class="has-error" ng-show="addRecipeForm.$dirty">
+				<span ng-show="addRecipeForm.price.$error.required">This
+					is a required field</span> <span
+					ng-show="addIngredientForm.price.$error.min">Minimum
+					amount is 0</span> <span ng-show="addRecipeForm.price.$invalid">This
+					field is invalid </span>
+			</div>
+				
+			<table>
+				<thead>
+					<tr>
+						<th>Ingredients</th>
+						<th>Amount</th>
+					</tr>
+				</thead>
+				<tbody ng-repeat="ingredient in ingredients">
+					<td>
+					<button ng-model="ingredients" ng-click="removeIngredient(ingredient)">-</button>
+					{{ingredient.name}}
+					</td>
+					
+					<td>
+					  <button ng-model="ingredient.amount" ng-click="ingredient.amount = ingredient.amount + 1">+</button>
+					  	{{ingredient.amount}}
+					  <button ng-model="ingredient.amount" ng-click="ingredient.amount = ingredient.amount - 1">-</button>
+					</td>
+				</tbody>
+			</table>
+			<br>
+			<input type="submit" ng-click="submitRecipe()" value="Add Recipe">
+				
+			<div ng-show="success">Recipe Created</div>
+			<div ng-show="failure">Error while adding recipe.</div>
+
+		</form>
+	</div>
+</div>
+
+
+
+</body>
+</html>

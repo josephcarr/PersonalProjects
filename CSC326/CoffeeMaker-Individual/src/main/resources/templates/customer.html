@@ -1,0 +1,95 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Customer Dashboard</title>
+<link rel="stylesheet" href="css/bootstrap.css" />
+<link rel="stylesheet" href="css/app.css" />
+<style>
+
+body {
+	background-color: #1E1515;
+	color: #ECE5E2;
+}
+
+label {
+	font-size: 24px;
+}
+
+button.btn.btn-primary {
+	background-color: #426265; 
+	border-color: #22383D;
+	font-size: 50px;
+	width: 30vw;
+	height: 50vh;
+	margin-top: 5vh;
+}
+
+div.dashboard {
+    display: flex;
+    flex-direction: row; 
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+input.ng-valid {
+	background-color: lightgreen;
+}
+
+input.ng-dirty.ng-invalid-required, input.ng-dirty.ng-invalid-number {
+	background-color: red;
+}
+
+input.ng-dirty.ng-invalid-min {
+	background-color: yellow;
+}
+</style>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.js"></script>
+</head>
+
+<body>
+
+
+	<script>
+		/*<![CDATA[*/
+		var app = angular.module('myApp', []);
+		app.controller('CustomerCtrl', function($scope, $http) {
+
+           $scope.redirect = function(filename) {
+				window.location.href = filename;
+           }
+			
+		});
+		/*]]>*/
+	</script>
+	<div ng-app="myApp" class="ng-cloak" ng-controller="CustomerCtrl as ctrl">
+			
+	    <nav id="navbar" class="navbar sticky-top" style="background-color: #426265;">
+	        <div class="h1" style="text-align: center;">CoffeeMaker</div>
+	    </nav>
+	
+	    <br>
+	
+		<div class="dashboard">
+			
+			<button class="btn btn-primary" ng-click="redirect('/placeorder.html')">Make Order
+				<br>
+				<img alt="" src="/icons/icons8-coffee-48.png" width="48" height="48" style="filter: invert(99%) sepia(63%) saturate(706%) hue-rotate(298deg) brightness(110%) contrast(80%);">
+			</button>
+			<button class="btn btn-primary" ng-click="redirect('/pickuporder.html')">Review Order
+				<br>
+				<img alt="" src="/icons/icons8-survey-48.png" width="48" height="48" style="filter: invert(99%) sepia(63%) saturate(706%) hue-rotate(298deg) brightness(110%) contrast(80%);">
+			</button>
+			
+		</div>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+</body>
+</html>

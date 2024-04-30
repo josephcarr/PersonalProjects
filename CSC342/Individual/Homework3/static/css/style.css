@@ -1,0 +1,58 @@
+/* <<--- Classes --->> */
+.inputarea {
+    display: flex;
+    flex-direction: row;
+}
+
+.inputs {
+    padding: 10px;
+}
+
+/* <<--- IDs --->> */
+
+#formdisplay {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#userdetails {
+    display: flex;
+    flex-direction: row;
+    padding: 10px;
+}
+
+#sender {
+    padding: 10px;
+    border-right: 2.5px solid #000
+}
+
+#recipient {
+    padding: 10px;
+    border-left: 2.5px solid #000;
+}
+
+#paymentdetails {
+    padding: 10px;
+}
+
+#imgpreview {
+    width: 375px;
+    height: 195px;
+    border: 2px solid #000;
+ }
+
+/* <<--- Elements --->> */
+
+input[type="submit"] {
+    background-color: #57ff5f;
+    font-size: 20px;
+    text-align: center;
+    width: 200px;
+    height: 50px;
+}
+
+input[type="submit"]:hover {
+    background-color: #3fcb46;
+    cursor: pointer;
+}

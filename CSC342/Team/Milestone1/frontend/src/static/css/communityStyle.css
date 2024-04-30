@@ -1,0 +1,62 @@
+/* Elements */
+
+main {
+    font-family: 'Poppins', sans-serif;
+    background-color: rgba(0, 0, 0, 0.6); 
+}
+
+h1{
+    font-size: 3.5rem;
+    color: #FFF;
+
+}
+
+/* IDs */
+
+#container {
+    background-color: rgba(255, 255, 255, 1);
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+#boardtitle {
+    text-decoration: underline;
+    text-align: center;
+}
+
+#add-friends-button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 10px;
+}
+
+#leaderboard .top3 {
+    text-align: center;
+    padding: 20px;
+}
+
+
+#leaderboard .top3 ul {
+    list-style: none;
+    padding: 0;
+}
+
+#leaderboard .top3 li {
+    margin-bottom: 10px;
+}
+
+#leaderboard .other-users {
+    text-align: center;
+}
+
+/* Classes */
+
+.center {
+    margin: auto;
+    width: 50%;
+    padding: 10px;
+}

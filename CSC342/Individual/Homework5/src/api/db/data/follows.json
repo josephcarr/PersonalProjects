@@ -1,0 +1,14 @@
+[
+  {
+    "userId": 1,
+    "following": [
+      2
+    ]
+  },
+  {
+    "userId": 2,
+    "following": [
+      1
+    ]
+  }
+]

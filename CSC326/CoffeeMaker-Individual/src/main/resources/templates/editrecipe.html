@@ -1,0 +1,168 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Edit Recipe</title>
+<link rel="stylesheet" href="css/bootstrap.css" />
+<link rel="stylesheet" href="css/app.css" />
+<style>
+body.new {
+	background-color: #1E1515;
+	color: #ECE5E2;
+}
+
+label {
+	font-size: 24px;
+}
+
+input[type="submit"] {
+	background-color: #426265; 
+	border-color: #22383D;
+	font-size: 16px;
+	width: 10vw;
+	height: 5vh;
+	margin: 2.5vw;
+}
+
+table button {
+	border-color: #22383D;
+	color: #000000;
+	font-size: 16px;
+}
+
+button.btn {
+	background-color: #426265; 
+	border-color: #22383D;
+	font-size: 16px;
+}
+
+.h1.redirect {
+	cursor: pointer;
+	font-size: 28px;
+}
+
+input.ng-valid {
+	background-color: lightgreen;
+}
+
+input.ng-dirty.ng-invalid-required, input.ng-dirty.ng-invalid-number {
+	background-color: red;
+}
+
+input.ng-dirty.ng-invalid-min {
+	background-color: yellow;
+}
+
+table {
+	border-collapse: separate;
+	border: 1px solid #1E1515;
+	text-align: center;
+	font-size: 16px;
+	width: 40vw;
+}
+
+tr, th, td {
+	text-align: left;
+	padding: 20px;
+	border: 1px solid #1E1515;
+	border-spacing: 20px;
+}
+
+thead {
+	background-color: #22383D;
+}
+
+tbody:nth-child(odd) {
+	background-color: #22383D;
+}
+
+tbody:nth-child(even) {
+	background-color: #426265;
+}
+</style>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.js"></script>
+</head>
+
+<body class="new">
+
+
+	<script>
+		/*<![CDATA[*/
+		var app = angular.module('myApp', []);
+		app.controller('editrecipeCtrl', function($scope, $http) {
+			$scope.loadRecipes = () => {
+				$http.get("/api/v1/recipes").then(res => {
+					$scope.recipes = res.data
+					
+				})
+				
+				
+			}
+			
+			$scope.editRecipe = (name) => {
+				document.location.href = "/recipe.html?name=" + name
+			}
+			
+			$scope.logout = function() {
+				$http.post("/api/v1/logout").then((resp) => {
+						document.location.href="/";
+				})
+			}
+			
+			$scope.home = function() {
+				document.location.href="/index";
+			}
+			
+			$scope.loadRecipes()
+			
+
+		});
+		/*]]>*/
+	</script>
+
+
+
+	<div class="ng-cloak" ng-app="myApp" ng-controller="editrecipeCtrl as ctrl" style="display: flex; flex-direction: column; align-items: center;">
+	
+		<nav id="navbar" class="navbar sticky-top" style="background-color: #426265; display: flex; flex-direction: row; justify-content: space-evenly; align-items: center; width: 100vw;">
+			<div class="h1 redirect" ng-click="home()" style="width: 30vw; text-align: left;">Home</div>
+	        <div class="h1" style="width: 30vw; text-align: center;">CoffeeMaker</div>
+	        <div class="h1 redirect" ng-click="logout()" style="width: 30vw; text-align: right;"> Logout</div>
+	    </nav>
+		
+	    <br>
+	    
+	    <h1 class="text-center">Edit Recipe</h1>
+			
+		<table>
+
+			<thead>
+				<tr>
+					<th>Recipe</th>
+					<th>Price</th>
+				</tr>
+			</thead>
+			<tbody id="recipe_contents" ng-repeat="recipe in recipes">
+				<td>{{recipe.name}}  </td>
+
+				<td>
+					 {{recipe.price}}
+					<button ng-model="recipe.price" class="btn btn-info" ng-click="editRecipe(recipe.name)" style="float: right;">Edit</button>
+				</td>
+			</tbody>
+		</table>
+			
+			
+		<div ng-show="success" style="text-align: center">
+			Inventory Successfully Updated
+			<button style='margin-left: 16px' class="btn btn-danger">x</button>
+		</div>
+		<div ng-show="failure" style="text-align: center">
+			Error while updating inventory.
+			<button style='margin-left: 16px' class="btn btn-danger">x</button>
+		</div>
+	</div>
+
+
+</body>
+</html>

@@ -1,0 +1,31 @@
+/* <<--- Classes --->> */
+
+.fields {
+    background-color: #eee;
+    text-align: left;
+    padding: 10px;
+}
+
+/* <<--- IDs --->> */
+
+#display {
+    display: flex;
+    flex-direction: column;
+}
+
+
+
+/* <<--- Elements --->> */
+
+img {
+    width: 375px;
+    height: 195px;
+    border: 2px solid #000;
+ }
+
+ button {
+    font-size: 15px;
+    text-align: center;
+    width: 200px;
+    height: 50px;
+ }

@@ -1,0 +1,164 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Login</title>
+<link rel="stylesheet" href="css/bootstrap.css" />
+<link rel="stylesheet" href="css/app.css" />
+<style>
+body.new {
+	background-color: #1E1515;
+	background-image: -moz-linear-gradient(top,  #cbe3ba,  #a6cc8b), url("/icons/coffee-background.jpg");
+    background-image: -webkit-gradient(linear, right bottom, left top, from(#42626500), to(#1E1515)), url("/icons/coffee-background.jpg");
+	width: 100vw;
+	height: 100vh;
+	background-size: cover;
+	color: #ECE5E2;
+}
+
+label {
+	font-size: 24px;
+}
+
+input[type="submit"] {
+	background-color: #426265; 
+	border-color: #22383D;
+	font-size: 16px;
+	width: 10vw;
+	height: 5vh;
+}
+
+div.dashboard {
+    display: flex;
+    flex-direction: row; 
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+div.left {
+	width: 45vw;
+	float: left;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+img.right {
+	width: 45vw;
+	float: right;
+}
+
+input.ng-valid {
+	background-color: lightgreen;
+}
+
+input.ng-dirty.ng-invalid-required, input.ng-dirty.ng-invalid-number {
+	background-color: red;
+}
+
+input.ng-dirty.ng-invalid-min {
+	background-color: yellow;
+}
+</style>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.js"></script>
+</head>
+
+<body class="new">
+
+
+	<script>
+		/*<![CDATA[*/
+		var app = angular.module('myApp', []);
+		app.controller('LoginFormCtrl', function($scope, $http) {
+			$scope.userObj = {username: '', password: ''}
+			
+			$scope.attemptLogin = () => {
+				
+				$scope.failureToLogin = false;
+				
+				console.log($scope.userObj)
+				if($scope.userObj.username != '' && $scope.userObj.password != '') {
+					$http.post("/api/v1/signin/", $scope.userObj).then(
+						function(success) {
+							console.log("Login Successful! Redirecting...");
+							document.location.href="/";
+						}, function(rejection) {
+							$scope.failureToLogin = true;
+							console.log("Login failed");
+					});
+				}
+			}
+			
+			$scope.attemptSignup = () => {
+				document.location.href="/signup";
+			}
+			
+			$scope.loginAnonymous = () => {
+				$scope.anonObj = {firstName: '', lastName: '', role: '', password: '', username: ''}
+					
+					// $scope.userObj.orders = null;
+					
+					console.log($scope.anonObj)
+					$http.post("/api/v1/signin/guest").then(
+						function(success) {
+							console.log("Signed up! Redirecting...");
+							document.location.href="/";
+							console.log(success)
+							
+						}, function(rejection) {
+							$scope.failureToSignup = true;
+							console.log("Signup failed");
+					});
+			}
+
+		});
+		/*]]>*/
+	</script>
+	<div ng-app="myApp" class="ng-cloak" ng-controller="LoginFormCtrl as ctrl">
+	
+	    <nav id="navbar" class="navbar sticky-top" style="background-color: #426265;">
+	        <div class="h1" style="text-align: center;">CoffeeMaker</div>
+	    </nav>
+	
+	    <br>
+	    
+    	<div class="left">
+		    <h1 id="welcome" class="text-center">Welcome! Please Login</h1>
+		    
+		    <br><br><br>
+		
+			<form style="display: flex; flex-direction: column; align-items: center;">
+				<div style="display: flex; align-items: center; margin: 20px;">
+					<label for="username">Username:</label>
+					<input ng-model="userObj.username" class="form-control" name="username" required minlength=1>
+				</div>
+				
+				<br>
+				
+				<div style="display: flex; align-items: center; margin: 20px;">
+					<label for="password">Password:</label>
+					<input type="password" ng-model="userObj.password" class="form-control" name="password" required minlength=1>
+				</div>
+				
+				<div ng-show="failureToLogin">Invalid username or password.</div>
+				
+				<br><br>
+				
+				<input type="submit" ng-click="attemptLogin()" class="btn btn-primary" value="Login">
+				<br>
+				<br>
+				<h3>Don't have an account?</h3>
+				<br>
+				<input type="submit" ng-click="attemptSignup()" class="btn btn-primary" value="Sign Up">
+			</form>
+		
+			<div style="display: flex; justify-content: center; margin: 20px;">
+				<button ng-click="loginAnonymous()" class="btn btn-primary"> Or Go Anonymous </button>
+			</div>
+		</div>
+	
+	</div>
+	
+</body>
+</html>

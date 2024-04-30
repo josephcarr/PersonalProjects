@@ -1,0 +1,219 @@
+/* <<--- Classes --->> */
+
+.ewert-regular {
+  font-family: "Ewert", serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.libre-baskerville-regular {
+  font-family: "Libre Baskerville", serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.flexlatest {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-content: flex-start;
+}
+
+.latestitem {
+  background-color: #eee;
+  margin: 5px;
+}
+
+.latestitem h3 {
+  text-align: center;
+}
+
+.latestitem h5 {
+  text-align: left;
+}
+
+.flexmain {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-content: flex-start;
+}
+
+.mainitem {
+  width: 49%;
+  background-color: #eee;
+  margin: 5px;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr; 
+  grid-template-rows: 0.25fr 0.25fr 0.25fr 0.25fr; 
+  grid-template-areas:
+    "title title title"
+    "sub sub sub"
+    "photo cont cont"
+    "ret link link";
+}
+
+.mainitem h2 {
+  grid-area: title;
+  background-color: #aaa;
+}
+
+.mainitem h3 {
+  grid-area: sub;
+  background-color: #ccc;
+}
+
+.mainitem p {
+  grid-area: cont;
+}
+
+.mainitem figure {
+  grid-area: photo;
+}
+
+.mainitem figure img {
+  width: 200px;
+  height: 225px;
+}
+
+.mainitem .totop {
+  text-align: right;
+  grid-area: ret;
+  background-color: #ccc;
+}
+
+.mainitem .articlelink {
+  text-align: right;
+  grid-area: link;
+  background-color: #aaa;
+}
+
+.flexquick {
+  display: flex;
+  flex-direction: row;
+  align-content: flex-start;
+}
+
+.quickitem {
+  background-color: #eee;
+  margin: 5px;
+}
+
+.quickitem figure img {
+  width: 300px;
+  height: 225px;
+}
+
+/* <<--- IDs --->> */
+
+#top {
+  visibility: hidden;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+#navbar {
+  position: sticky;
+  top: 0;
+  font-size: 25px;
+  background-color: #ddd;
+  text-align: center;
+}
+
+#navbar nav a:link {
+  color: #000;
+}
+
+#navbar nav a:visited {
+  color: #000;
+}
+
+#newshead {
+  font-size: 40px;
+  background-color: #fff;
+}
+
+#newsfoot {
+  background-color: #333;
+  color: white;
+  text-align: center;
+}
+
+#newspagegrid {
+  display: grid;
+  gap: 5px;
+  grid-template-columns: 0.75fr 1.25fr 1fr; 
+  grid-template-rows: 1.25fr 1.25fr 1.25fr 0.25fr; 
+  grid-template-areas:
+    "left mid mid"
+    "left mid mid"
+    "left mid mid"
+    "bot bot bot";
+}
+
+#latestnews {
+  border: #000;
+  border-right-style: solid;
+  border-width: 2px;
+  text-align: center;
+  grid-area: left;
+  padding: 10px;
+}
+
+#mainnews {
+  grid-area: mid;
+  padding: 5px;
+}
+
+#quickread {
+  border: #000;
+  border-top-style: solid;
+  border-width: 5px;
+  grid-area: bot;
+  padding: 5px;
+}
+
+#quickread h4 {
+  text-decoration: underline;
+}
+
+/* <<--- Elements --->> */
+
+body {
+  padding: 0;
+  margin: 0;
+}
+
+header {
+  text-align: center;
+}
+
+nav ul {
+  list-style-type: none;
+  text-decoration: none;
+  margin: 0;
+  padding: 0;
+}
+
+nav li {
+  display: inline-block;
+  margin: 10px;
+}
+
+a {
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+footer nav a:link {
+  color: #fff;
+}
+
+footer nav a:visited {
+  color: #fff;
+}

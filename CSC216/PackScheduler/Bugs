@@ -1,0 +1,11 @@
+RegistrationManager has no comments for methods/fields
+getCurrentUser is not implemented
+currentUser field states that it has not been used
+
+Bugs in RegistrationManager
+-Line 71: Student s = studentDirectory.getStudentById(id);
+	Read of unwritten field studentDirectory
+-Line 104: courseCatalog.newCourseCatalog();
+	Read of unwritten field studentDirectory
+-Line 105: studentDirectory.newStudentDirectory();
+	Read of unwritten field studentDirectory

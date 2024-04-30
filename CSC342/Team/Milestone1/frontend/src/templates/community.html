@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./css/communityStyle.css" />
+    <title> Community Page</title>
+</head>
+<body>
+    <h1>Welcome to Community Page</h1>
+
+    <div id="container">
+        <button id="add-friends-button">Add Friends</button>
+
+        <div class="center">
+            <div>
+                <select>
+                    <option value="totalparks">Total Parks</option>
+                    <option value="totalvisits">Total Visits</option>
+                </select>
+            </div>
+
+            <div>
+                <input type="radio" id="distance" name="leadertype" value="distance" checked />
+                <label for="distance">Distance</label>
+
+                <input type="radio" id="trail" name="leadertype" value="trail" />
+                <label for="trail">Trails</label>
+            </div>
+
+            <h2 id="boardtitle">Leaderboard</h2>
+        </div>
+
+        <div id="leaderboard">
+            <div class="top3">
+                <h4>Top 3</h4>
+                <ul>
+                    <li>
+                        <img src="user_profile_picture.jpg" alt="User Profile Picture" />
+                        <p>1. User Name</p>
+                        <p>Value</p>
+                    </li>
+                    <li>
+                        <img src="user_profile_picture.jpg" alt="User Profile Picture" />
+                        <p>2. User Name</p>
+                        <p>Value</p>
+                    </li>
+                    <li>
+                        <img src="user_profile_picture.jpg" alt="User Profile Picture" />
+                        <p>2. User Name</p>
+                        <p>Value</p>
+                    </li>
+                </ul>
+            </div>
+            <div class="other-users">
+                <h5>Other Users</h5>
+                <ul>
+                    <li>User 4</li>
+                    <li>User 5</li>
+                    <li>User 6</li>
+                    <li>User 7</li>
+                    <li>User 8</li>
+                    <li>User 9</li>
+                    <li>User 10</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

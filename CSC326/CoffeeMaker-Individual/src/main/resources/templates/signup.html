@@ -1,0 +1,132 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Signup</title>
+<link rel="stylesheet" href="css/bootstrap.css" />
+<link rel="stylesheet" href="css/app.css" />
+<style>
+body {
+	background-color: #1E1515;
+	color: #ECE5E2;
+}
+
+label {
+	font-size: 24px;
+}
+
+input[type="submit"] {
+	background-color: #426265; 
+	border-color: #22383D;
+	font-size: 16px;
+	width: 10vw;
+	height: 5vh;
+}
+
+button.btn {
+	border-color: #22383D;
+	font-size: 16px;
+	width: 10vw;
+	height: 5vh;
+	margin: 2.5vw;
+}
+
+input.ng-valid {
+	background-color: lightgreen;
+}
+
+input.ng-dirty.ng-invalid-required, input.ng-dirty.ng-invalid-number {
+	background-color: red;
+}
+
+input.ng-dirty.ng-invalid-min {
+	background-color: yellow;
+}
+</style>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.js"></script>
+</head>
+
+<body>
+
+
+	<script>
+		/*<![CDATA[*/
+		var app = angular.module('myApp', []);
+		app.controller('SignupFormCtrl', function($scope, $http) {
+			$scope.userObj = {firstName: '', lastName: '', role: '', password: '', username: ''}
+			
+			$scope.attemptSignup = () => {
+				
+				$scope.userObj.role = "Customer";
+				$scope.failureToSignup = false;
+				
+				if($scope.userObj.username != '' && $scope.userObj.password != '' && $scope.userObj.firstName != '' && $scope.userObj.lastName != '') {
+					
+					$scope.userObj.id = 1000000000;
+					// $scope.userObj.orders = null;
+					
+					console.log($scope.userObj)
+					$http.post("/api/v1/signup/", $scope.userObj).then(
+						function(success) {
+							console.log("Signed up! Redirecting...");
+							console.log($scope.userObj)
+							document.location.href="/";
+						}, function(rejection) {
+							$scope.failureToSignup = true;
+							console.log("Signup failed");
+					});
+				}
+			}
+
+		});
+		/*]]>*/
+	</script>
+	<div ng-app="myApp" class="ng-cloak" ng-controller="SignupFormCtrl as ctrl">
+	
+	    <nav id="navbar" class="navbar sticky-top" style="background-color: #426265;">
+	        <div class="h1" style="text-align: center;">CoffeeMaker</div>
+	    </nav>
+	
+	    <br>
+	
+		<form class="container form-container" style="display: flex; flex-direction: column; align-items: center;">
+			<div style="display: flex; align-items: center; margin: 20px;">
+				<label for="firstName">First Name:</label>
+				<input type="text" ng-model="userObj.firstName" class="form-control" name="firstName" required minlength=1>
+			</div>
+			
+			<div style="display: flex; align-items: center; margin: 20px;">
+				<label for="lastName">Last Name:</label>
+				<input type="text" ng-model="userObj.lastName" class="form-control" name="lastName" required minlength=1>
+			</div>
+		
+			<div style="display: flex; align-items: center; margin: 20px;">
+				<label for="username">Username:</label>
+				<input ng-model="userObj.username" class="form-control" name="username" required minlength=1>
+			</div>
+			
+			<br>
+			
+			<div style="display: flex; align-items: center; margin: 20px;">
+				<label for="password">Password:</label>
+				<input type="password" ng-model="userObj.password" class="form-control" name="password" required minlength=1>
+			</div>
+			
+			<div ng-show="failureToSignup">Sorry, this account already exists.</div>
+			
+			<br><br>
+			
+			<input type="submit" ng-click="attemptSignup()" class="btn btn-primary" value="Sign Up">
+			<br>
+			<h3>Already have an account?</h3>
+			<br>
+			<a href="/login">
+				<button type="button" class="btn btn-primary"> Login </button>
+			</a>
+		</form>
+	
+	
+	</div>
+	
+</body>
+</html>

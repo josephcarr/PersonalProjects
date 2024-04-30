@@ -1,0 +1,123 @@
+/* <<-- Classes -->> */
+
+.dropdown {
+    position: relative;
+    padding: 10px;
+    height: 20%;
+}
+
+.dropcontent {
+    text-align: left;
+    display: none;
+    position: absolute;
+    background-color: #f1f1f1;
+    width: 175px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    border: 2px solid #000;
+}
+
+.dropcontent ul {
+    list-style-type: none;
+    text-decoration: none;
+}
+
+.dropdown:hover .dropcontent {
+    display: block;
+}
+
+.dashitem {
+    padding: 10px;
+    background-color: #ddd;
+    border: 5px solid #000;
+}
+
+.mainitem img {
+    width: 828px;
+    height: 430px;
+}
+
+/* <<-- IDs -->> */
+
+#profile {
+    width: 200px;
+    height: 50px
+}
+
+#profile img {
+    width: 45px;
+    height: 45px;
+    float: left;
+}
+
+#sidebar {
+    padding: 10px;
+    width: 12%;
+    background-color: #d23a3a;
+    
+    grid-area: side;
+    height: 450px;
+    float: left;
+}
+
+#sidecontent {
+    padding: 10px;
+    background-color: #cdcdcd;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+#startmenu {
+    background-color: #f88484;
+    grid-area: start;
+}
+
+#leftstart {
+    padding: 10px;
+    float: left;
+    display: flex;
+}
+
+#rightstart {
+    padding: 10px;
+    display: flex;
+    flex-direction: row-reverse;
+}
+
+#infodash {
+    padding: 10px;
+    background-color: #9f9f9f;
+    display: flex;
+    justify-content: space-evenly;
+    align-self: stretch;
+}
+
+#maincontent {
+    /* overflow-y: scroll; */
+    /* overflow-x: auto; */
+    grid-area: mid;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Elements */
+
+body {
+    margin: 0;
+    padding: 0;
+    /* display: grid;
+    gap: 10px;
+    grid-template-columns: 0.5fr 1.25fr 1.25fr;
+    grid-template-rows: 0.5fr 1.25fr 1.25fr;
+    grid-template-areas:
+        "start start start"
+        "side mid mid"
+        "side mid mid"; */
+}
+
+button {
+    width: 50px;
+    height: 50px;
+}
+
