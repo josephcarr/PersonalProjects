@@ -1,6 +1,6 @@
-### [landing.html](https://github.ncsu.edu/engr-csc342/csc342-2024Spring-jacarras/blob/main/Homework1/Part1/landing.html)
+### [landing.html](https://github.com/josephcarr/PersonalProjects/blob/main/CSC342/Individual/Homework1/Part1/landing.html)
 
-### [dashboard.html](https://github.ncsu.edu/engr-csc342/csc342-2024Spring-jacarras/blob/main/Homework1/Part2/dashboard.html)
+### [dashboard.html](https://github.com/josephcarr/PersonalProjects/blob/main/CSC342/Individual/Homework1/Part2/dashboard.html)
 
 ## Reflection
 This assignment was very fun and interesting to figure out. It was kind of tough for me considering I am not a very creative person, but I impressed myself with what
