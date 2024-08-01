@@ -44,7 +44,7 @@ We decided to use the network first approach to get the latest updates of the ap
 
 
 ## Wireframes:
-![Web Display for ParkQuest](https://github.ncsu.edu/engr-csc342/csc342-2024Spring-GroupP/blob/main/Proposal/Wireframes/Finished/Web-%20wireframe%20V2.png)
+![Web Display for ParkQuest](https://github.com/josephcarr/PersonalProjects/blob/main/CSC342/Team/Proposal/Wireframes/Finished/Web-%20wireframe%20V2.png)
 
 ### APIs:
 
@@ -73,7 +73,7 @@ We decided to use the network first approach to get the latest updates of the ap
 
 
 ### Database Schema
-![DBSchema](https://github.ncsu.edu/engr-csc342/csc342-2024Spring-GroupP/blob/main/schema/ParkQuest_Schema.png)
+![DBSchema](https://github.com/josephcarr/PersonalProjects/blob/main/CSC342/Team/schema/ParkQuest_Schema.png)
 
 ### Team Member Contributions
 
