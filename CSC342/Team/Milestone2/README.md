@@ -34,7 +34,7 @@ If a user is not logged in on a webpage, they will be redirected to the login pa
 | Community            | 100%         | - Completely implemented with leaderboard                               |
 
 ## Wireframes:
-![Web Display for ParkQuest](https://github.ncsu.edu/engr-csc342/csc342-2024Spring-GroupP/blob/main/Proposal/Wireframes/Finished/Web-%20wireframe%20V2.png)
+![Web Display for ParkQuest](https://github.com/josephcarr/PersonalProjects/blob/main/CSC342/Team/Proposal/Wireframes/Finished/Web-%20wireframe%20V2.png)
 
 ### APIs:
 
@@ -60,7 +60,7 @@ If a user is not logged in on a webpage, they will be redirected to the login pa
 
 
 ### Database Schema
-![DBSchema](https://github.ncsu.edu/engr-csc342/csc342-2024Spring-GroupP/blob/main/images/ParkQuest_Schema.png)
+![DBSchema](https://github.com/josephcarr/PersonalProjects/blob/main/CSC342/Team/schema/ParkQuest_Schema.png)
 
 ### Team Member Contributions
 
