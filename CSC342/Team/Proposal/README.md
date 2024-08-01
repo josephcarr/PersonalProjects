@@ -50,10 +50,10 @@ to the application, allowing users to share tips, recommendations, and experienc
 
 ## Supporting Draft Wireframes:
 ### Mobile:
-![Mobile Display for ParkQuest](https://github.ncsu.edu/engr-csc342/csc342-2024Spring-GroupP/blob/main/Proposal/Wireframes/Finished/Mobile%20wireframe%20V4.png)
+![Mobile Display for ParkQuest](https://github.com/josephcarr/PersonalProjects/blob/main/CSC342/Team/Proposal/Wireframes/Finished/Mobile%20wireframe%20V4.png)
 
 ### Web:
-![Web Display for ParkQuest](https://github.ncsu.edu/engr-csc342/csc342-2024Spring-GroupP/blob/main/Proposal/Wireframes/Finished/Web-%20wireframe%20V2.png)
+![Web Display for ParkQuest](https://github.com/josephcarr/PersonalProjects/blob/main/CSC342/Team/Proposal/Wireframes/Finished/Web-%20wireframe%20V2.png)
 
 ## Benefits of ParkQuest as a PWA:
 
