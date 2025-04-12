@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class CarrotScript : MonoBehaviour
 {
-    private LogicScript logic;
+    //private LogicScript logic;
 
     // Start is called before the first frame update
     void Start()
     {
-        logic = GameObject.FindGameObjectWithTag("Logic").GetComponent<LogicScript>();
+        //logic = GameObject.FindGameObjectWithTag("Logic").GetComponent<LogicScript>();
     }
 
     // Update is called once per frame
@@ -24,7 +24,7 @@ public class CarrotScript : MonoBehaviour
         {
             if (collision.gameObject.tag == "Bunny")
             {
-                logic.setGameOver(true);
+                //LogicScript.setGameOver(true);
             }
         }
     }

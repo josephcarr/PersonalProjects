@@ -166,7 +166,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a7222fa7831c464aa2c84efd47cbead, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  logic: {fileID: 0}
   myRigidbody: {fileID: 149446430831220276}
+  carrot: {fileID: 7571863551846258280, guid: 5c2bc290f0f8e5845ba422453e56d63e, type: 3}
   speed: 2
 --- !u!50 &149446430831220276
 Rigidbody2D:
